@@ -10,13 +10,20 @@ parser = argparse.ArgumentParser(description="Synthetic retail Kafka producer")
 parser.add_argument("--num-users", type=int, default=10, help="Número de usuarios")
 parser.add_argument("--interval", type=float, default=10, help="Tiempo medio entre envíos (segundos)")
 parser.add_argument("--conversion-prob", type=float, default=0.3, help="Probabilidad de que un click genere una orden")
+# Nuevo parámetro para bootstrap.servers
+parser.add_argument(
+    "--bootstrap-servers",
+    type=str,
+    default="localhost:9092,localhost:9094,localhost:9096",
+    help="Lista de brokers de Kafka separados por comas (ej: host1:9092,host2:9092)"
+)
 args = parser.parse_args()
 
 # -------------------------------
 # Configurar productor Confluent
 # -------------------------------
 producer = Producer({
-    "bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096"
+    "bootstrap.servers": args.bootstrap_servers  
 })
 
 def send(topic, value):
