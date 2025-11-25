@@ -223,7 +223,8 @@ services:
   control-center:
     image: confluentinc/cp-enterprise-control-center-next-gen:2.2.0
     hostname: control-center
-    container_name: control-center
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: control-center
     depends_on:
       - broker
       - schema-registry
