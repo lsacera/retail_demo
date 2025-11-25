@@ -3,7 +3,8 @@ services:
   broker:
     image: confluentinc/cp-server:8.0.0
     hostname: broker
-    container_name: broker
+    # Es una buena práctica no poner el nombre del contenedor
+    # container_name: broker 
     ports:
       - "9092:9092"
       - "9101:9101"
@@ -53,7 +54,8 @@ services:
     depends_on:
       - broker
     hostname: broker-2
-    container_name: broker-2
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: broker-2
     ports:
       - "9094:9092"
       - "9102:9101"
@@ -102,7 +104,8 @@ services:
       - broker
       - broker-2
     hostname: broker-3
-    container_name: broker-3
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: broker-3
     ports:
       - "9096:9092"
       - "9103:9101"
@@ -145,9 +148,6 @@ services:
       KAFKA_CONFLUENT_TELEMETRY_REMOTECONFIG_CONFLUENT_ENABLED: "false"
       KAFKA_CONFLUENT_CONSUMER_LAG_EMITTER_ENABLED: "true"
 
-
-
-
   schema-registry:
     image: confluentinc/cp-schema-registry:8.0.0
     depends_on:
@@ -163,7 +163,8 @@ services:
   connect:
     image: cnfldemos/cp-server-connect-datagen:0.6.4-7.6.0
     hostname: connect
-    container_name: connect
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: connect
     depends_on:
       - broker
       - broker-2
@@ -194,7 +195,8 @@ services:
   prometheus:
     image: confluentinc/cp-enterprise-prometheus:2.2.0
     hostname: cp-enterprise-prometheus
-    container_name: prometheus
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: prometheus
     volumes:
       - ./vol/config:/mnt/config
     ports:
@@ -206,7 +208,8 @@ services:
   alertmanager:
     image: confluentinc/cp-enterprise-alertmanager:2.2.0
     hostname: cp-enterprise-alertmanager
-    container_name: alertmanager
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: alertmanager
     depends_on:
       - prometheus
     volumes:
@@ -255,7 +258,8 @@ services:
   ksqldb-server:
     image: confluentinc/cp-ksqldb-server:8.0.0
     hostname: ksqldb-server
-    container_name: ksqldb-server
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: ksqldb-server
     depends_on:
       - broker
       - broker-2
@@ -323,7 +327,8 @@ services:
     ports:
       - 8082:8082
     hostname: rest-proxy
-    container_name: rest-proxy
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: rest-proxy
     environment:
       KAFKA_REST_HOST_NAME: rest-proxy
       KAFKA_REST_BOOTSTRAP_SERVERS: 'broker:29092,broker-2:29092,broker-3:29092'
@@ -335,7 +340,8 @@ services:
     depends_on:
       - flink-jobmanager
     hostname: flink-sql-client
-    container_name: flink-sql-client
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: flink-sql-client
     environment:
       FLINK_JOBMANAGER_HOST: flink-jobmanager
     
@@ -343,7 +349,8 @@ services:
   flink-jobmanager:
     image: cnfldemos/flink-kafka:1.19.1-scala_2.12-java17
     hostname: flink-jobmanager
-    container_name: flink-jobmanager
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: flink-jobmanager
     ports:
     - 9081:9081
     command: jobmanager
@@ -357,7 +364,8 @@ services:
   flink-taskmanager:
     image: cnfldemos/flink-kafka:1.19.1-scala_2.12-java17
     hostname: flink-taskmanager
-    container_name: flink-taskmanager
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: flink-taskmanager
     depends_on:
     - flink-jobmanager
     command: taskmanager
@@ -370,7 +378,8 @@ services:
     
   grafana:
     image: grafana/grafana:latest
-    container_name: grafana
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: grafana
     ports:
       - "3000:3000"
     environment:
@@ -379,7 +388,8 @@ services:
   
   postgres:
     image: postgres:15
-    container_name: postgres
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: postgres
     restart: always
     ports:
       - "5432:5432"

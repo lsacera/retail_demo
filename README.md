@@ -1,6 +1,6 @@
 # Retail demo 
 This repository contains the necessary artifacts to create and execute a demo with Confluent Platform. This demo can be executed on a local computer with no connection to internet (you do need connection to download the docker images in the first iteration)
-The demonstration is and end to end demo with the following components:
+The demonstration contains the following components:
 - A complete Confluent Platform built using Docker.
 - A grafana container to be able to show dashboards.
 - A postgres database container to store data products.
@@ -9,14 +9,17 @@ The demonstration is and end to end demo with the following components:
 ## Requisites
 This demo has been tested using the following software:
 - MacOS 15.7.2
-- Docker desktop 4.49
+- Docker desktop 4.49. 
 - Python 3.14
 - Pip to install libraries in python
+It should work with similar resources under other operating systems, but it was not tested in Windows or Linux.
+**NOTE**: Memory requirements are quite high as this demo setups a bunch of different containers. 16 Gb of RAM is recommended. However, the docker-compose.yml file can be modified to save resources.
 
 ## Setup
 
  - Clone this repository to a local folder in order to have all the resources available.
- - Then create all the docker containers using the docker command:
+ `git clone https://github.com/lsacera/retail-demo`
+ - Go to the cloned folder and create all the docker containers using the docker command:
  `docker compose up -d``
  - Once the machines are created, there are some resources that should be copied inside several of them. Execute the following commands:
  `chmod +x copy_resources.sh`
@@ -42,7 +45,7 @@ The creation dialog will appear. The importan fields are the following:
 	 
 	Leave the rest as default. Scroll down and click on the "Save and test" button to see that the connection is working.
 	
- - Once the datasource is set up, import the dashboards into grafana Follow these steps:
+ - Once the datasource is set up, import the dashboards into grafana. Follow these steps:
 	 - Open grafana url at http://localhost:3000 and enter with admin credentials.
 	 - Go to "Dashboards" on the left menu.
 	 - Create a new folder by clicking on the button "New" at the top right and selecting "New folder".  Give the folder a name and click "Create".
@@ -80,7 +83,7 @@ Once the producer is producing data into the kafka cluster, the data is processe
 **Seeing results**
 The demo can be checked out in the following resources:
 
- - **Confluent control center**: the main management console Web UI. Just go to http://localhost:9091 and the main cluster should appear there. Click on the cluster and then in the "Topics" link in the left side menu to see all the topics. The basic topics are "retail_clicks", "retail_orders" and "retail_payments". The rest of the topics are created and populated from the flink queries.
+ - **Confluent control center**: the main management console Web UI. Just go to http://localhost:9021 and the main cluster should appear there. Click on the cluster and then in the "Topics" link in the left side menu to see all the topics. The basic topics are "retail_clicks", "retail_orders" and "retail_payments". The rest of the topics are created and populated from the flink queries.
  - **Flink Web dashboard**: using a web browser, go to http://localhost:9081. In the Flink dashboard, all the running jobs (that is, the processing of the data from the topics) can see in the home page. (14 running jobs should be shown in this dashboard).
  - **Grafana**: the dashboards that were imported before should be populating with data. Remember grafana can be accesed in the url http://localhost:3000. Then go to the option "Dashboards" in the lef side menu and then select the folder and dashboard imported before. The dashboards reflect the real time data processed by Flink and materialized in the postgres database.
 
