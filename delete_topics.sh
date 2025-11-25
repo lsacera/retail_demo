@@ -20,12 +20,12 @@ TOPICS=(
 BROKER_CONTAINER="broker"
 BOOTSTRAP_SERVER="broker:29092"
 
-echo "🗑️ Iniciando la eliminación de tópicos de Kafka..."
+echo "🗑️ Initializing Kafka topics removal..."
 echo "---"
 
 # Bucle For para iterar sobre el array TOPICS
 for topic in "${TOPICS[@]}"; do
-  echo "[INFO] Eliminando tópico: $topic"
+  echo "[INFO] Removing topic: $topic"
   
   # Ejecuta el comando docker exec para eliminar el tópico
   docker exec -it "$BROKER_CONTAINER" kafka-topics \
@@ -38,6 +38,6 @@ for topic in "${TOPICS[@]}"; do
 done
 
 echo "---"
-echo "✅ Eliminación de todos los tópicos solicitada."
-echo "⚠️ Nota: En configuraciones por defecto, Kafka solo marca los tópicos como eliminados."
-echo "       El borrado real puede tardar, dependiendo de la configuración 'delete.topic.enable=true' del broker."
+echo "✅ Topic delection requested."
+echo "⚠️ Note: In default configurations, Kafka mark the topics as removed."
+echo "       The real removal can take a while, depending on the configuration of the broker: 'delete.topic.enable=true'."

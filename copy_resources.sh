@@ -16,22 +16,22 @@ JARS=(
 )
 SQL=flink-retail.sql
 
-echo "[INFO] Copiando JARs a JobManager..."
+echo "[INFO] Copying JARS to JobManager..."
 for jar in "${JARS[@]}"; do
   docker cp "libraries/$jar" "$JOBMANAGER_CONTAINER":/opt/flink/lib/
 done
 
-echo "[INFO] Copiando JARs a TaskManager..."
+echo "[INFO] Copyoing JARs to TaskManager..."
 for jar in "${JARS[@]}"; do
   docker cp "libraries/$jar" "$TASKMANAGER_CONTAINER":/opt/flink/lib/
 done
 
-echo "[INFO] Copiando JARs a SQL Client..."
+echo "[INFO] Copying JARs to SQL Client..."
 for jar in "${JARS[@]}"; do
   docker cp "libraries/$jar" "$SQLCLIENT_CONTAINER":/opt/flink/lib/
 done
 
-echo "[INFO] Copiando SQL a SQL Client..."
+echo "[INFO] Copying SQL to SQL Client..."
 docker cp "$SQL" "$SQLCLIENT_CONTAINER":/opt/
 
-echo "[INFO] Copia completada."
+echo "[INFO] Copy completed."

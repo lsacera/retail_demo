@@ -7,15 +7,15 @@ import argparse
 # Parsear parámetros
 # -------------------------------
 parser = argparse.ArgumentParser(description="Synthetic retail Kafka producer")
-parser.add_argument("--num-users", type=int, default=10, help="Número de usuarios")
-parser.add_argument("--interval", type=float, default=10, help="Tiempo medio entre envíos (segundos)")
-parser.add_argument("--conversion-prob", type=float, default=0.3, help="Probabilidad de que un click genere una orden")
+parser.add_argument("--num-users", type=int, default=10, help="Number of users")
+parser.add_argument("--interval", type=float, default=10, help="Waiting time between send events (seconds)")
+parser.add_argument("--conversion-prob", type=float, default=0.3, help="Order generation probability")
 # Nuevo parámetro para bootstrap.servers
 parser.add_argument(
     "--bootstrap-servers",
     type=str,
     default="localhost:9092,localhost:9094,localhost:9096",
-    help="Lista de brokers de Kafka separados por comas (ej: host1:9092,host2:9092)"
+    help="Comma-separated list of kafka brokers (ex: host1:9092,host2:9092)"
 )
 args = parser.parse_args()
 
@@ -38,10 +38,10 @@ referrers = ["google", "facebook", "newsletter", "direct"]
 # Log al inicio
 # -------------------------------
 print(f"[{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')}] Producer iniciado")
-print(f"Número de usuarios: {args.num_users}")
-print(f"Intervalo medio entre envíos: {args.interval} segundos")
-print(f"Probabilidad de conversión por click: {args.conversion_prob}")
-print("Usuarios:", users)
+print(f"Number of users: {args.num_users}")
+print(f"Waiting time between send events (seconds): {args.interval} segundos")
+print(f"Order generation probability: {args.conversion_prob}")
+print("Users:", users)
 print("------")
 
 # -------------------------------
@@ -88,12 +88,12 @@ while True:
         payment_event = None
 
     # Log
-    print(f"[{ts_str}] Click enviado para {u}: {click_event}")
+    print(f"[{ts_str}] Click sent for {u}: {click_event}")
     if order_event:
         print(f"  Order: {order_event}")
         print(f"  Payment: {payment_event}")
     else:
-        print("  No se generó ni orden ni pago")
+        print("  Order and payment NOT generated (user is only browsing)")
 
     # Intervalo variable
     sleep_time = random.uniform(args.interval * 0.5, args.interval * 1.5)

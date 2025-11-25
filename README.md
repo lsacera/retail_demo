@@ -67,7 +67,9 @@ The creation dialog will appear. The importan fields are the following:
 	 - in the "postgres datasource" dropdown, select the datasource.
 	 - Click on "Import" button.
 	 
- - Do again the same steps to import a second file called "Grafana_Revenues.json"
+ - Go back to the folder created before and do again the same steps to import a second file called "Grafana_Revenues.json"
+
+The dashboards will not work now; this is normal.
 
 ## Demo execution
 **Producer**
@@ -81,7 +83,7 @@ Open a terminal and execute the following commands:
 `pip install confluent-kafka`
 
 Then start the producer with this command:
-`python producer.py``
+`python retail_data_producer.py`
 
 This command will start producing data into the kafka cluster. By default, these values are used:
 - num-users: 10 --> number of users generating data for
@@ -92,16 +94,16 @@ The default parameters can be changed when invoking the producer, for example:
 `python3 producer.py --num-users 50 --interval 5.0 --conversion-prob 0.5 --bootstrap-servers "kafka-broker-prod:9092"``
 
 **Flink queries**
-Once the producer is producing data into the kafka cluster, the data is processed in real time using flink. In order to make things easier, the flink queries can be sent to the flink container in a batch file by executing the following command:
+Once the producer is producing data into the kafka cluster, the data will be processed in real time using Flink. In order to make things easier, the flink queries can be sent to the flink container in a batch file by executing the following command (a new terminal should be opened for this)
 
-`docker exec -it flink-sql-client /opt/flink/bin/sql-client.sh -f /opt/flink-news.sql`
+`docker exec -it flink-sql-client /opt/flink/bin/sql-client.sh -f /opt/flink-retail.sql`
 
 **Seeing results**
 The demo can be checked out in the following resources:
 
  - **Confluent control center**: the main management console Web UI. Just go to http://localhost:9021 and the main cluster should appear there. Click on the cluster and then in the "Topics" link in the left side menu to see all the topics. The basic topics are "retail_clicks", "retail_orders" and "retail_payments". The rest of the topics are created and populated from the flink queries.
  - **Flink Web dashboard**: using a web browser, go to http://localhost:9081. In the Flink dashboard, all the running jobs (that is, the processing of the data from the topics) can see in the home page. (14 running jobs should be shown in this dashboard).
- - **Grafana**: the dashboards that were imported before should be populating with data. Remember grafana can be accesed in the url http://localhost:3000. Then go to the option "Dashboards" in the lef side menu and then select the folder and dashboard imported before. The dashboards reflect the real time data processed by Flink and materialized in the postgres database.
+ - **Grafana**: the dashboards that were imported before should be populating with data. Remember grafana can be accesed in the url http://localhost:3000. Then go to the option "Dashboards" in the lef side menu and then select the folder and dashboard imported before. The dashboards reflect the real time data processed by Flink and materialized in the postgres database. Refresh the dashboards to start seeing results.
 
 ## Cleaning up resources
 To clean the resources in the demo, all the containers in docker can be destroyed. 

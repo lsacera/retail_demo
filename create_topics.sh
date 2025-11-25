@@ -22,12 +22,12 @@ BOOTSTRAP_SERVER="broker:29092"
 PARTITIONS=3
 REPLICATION_FACTOR=1
 
-echo "🚀 Iniciando la creación de tópicos de Kafka..."
+echo "🚀 Initializing creation of Kafka topics..."
 echo "---"
 
 # Bucle For para iterar sobre el array TOPICS
 for topic in "${TOPICS[@]}"; do
-  echo "[INFO] Creando tópico: $topic"
+  echo "[INFO] Creating topic: $topic"
   
   # Ejecuta el comando docker exec para crear el tópico
   docker exec -it "$BROKER_CONTAINER" kafka-topics \
@@ -42,4 +42,4 @@ for topic in "${TOPICS[@]}"; do
 done
 
 echo "---"
-echo "✅ Creación de todos los tópicos completada."
+echo "✅ Topic creation completed."

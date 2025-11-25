@@ -6,11 +6,11 @@ DB_USER="grafana"
 DB_PASSWORD="grafana"
 SQL_FILE="init_db.sql"
 
-echo "⏳ Esperando a que el contenedor de PostgreSQL esté listo..."
+echo "⏳ Waiting for PostgresSQL to be ready..."
 # Simple espera, puede que necesites un mecanismo más robusto para entornos de producción
 sleep 10 
 
-echo "🚀 Ejecutando script SQL ($SQL_FILE) dentro del contenedor $DB_CONTAINER..."
+echo "🚀 Executing script SQL ($SQL_FILE) in the db container $DB_CONTAINER..."
 
 # Copiar el archivo SQL dentro del contenedor
 docker cp "$SQL_FILE" "$DB_CONTAINER":/tmp/"$SQL_FILE"
@@ -27,4 +27,4 @@ docker exec \
 # para poder ejecutar 'CREATE DATABASE retail;' primero. 
 # El resto de los comandos se ejecutan luego de la sentencia \c retail dentro del fichero SQL.
 
-echo "✅ Inicialización de la base de datos y creación de tablas completada."
+echo "✅ Database init and table creation completed."
