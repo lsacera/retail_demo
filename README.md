@@ -47,7 +47,7 @@ It should work with similar resources under other operating systems, but it was 
  `./init_db.sh`
  - Create a data source in grafana. To do so, open grafana in the Web Browser in the address http://localhost:3000 (the first time, a new admin password should be set. The default password is "admin").
 In the left menu, go to "Connections --> Data sources" option.
-In the scree, select the top-right button "Add new datasource".
+In the screen, select the top-right button "Add new datasource".
 In the search box, search for "postgres" and select the Postgres data source.
 The creation dialog will appear. The importan fields are the following:
 	 - Name: select a name for the connector
@@ -55,6 +55,8 @@ The creation dialog will appear. The importan fields are the following:
 	 - Authentication: select "grafana" and "grafana" as the user and password for the database. This is defined in the dockerfile.
 	 - TLS/SSL Mode: disable. This setting is very important as the database is not secured in this demo.
 	 
+![Datasource settings](images/2.-Datasource_settings.png)	 
+
 	Leave the rest as default. Scroll down and click on the "Save and test" button to see that the connection is working.
 	
  - Once the datasource is set up, import the dashboards into grafana. Follow these steps:
@@ -66,7 +68,9 @@ The creation dialog will appear. The importan fields are the following:
 	 - Leave the unique identifier as is (can be changed if required)
 	 - in the "postgres datasource" dropdown, select the datasource.
 	 - Click on "Import" button.
-	 
+
+![Import dashboard from json](images/3.-Dashboard_import.png)
+
  - Go back to the folder created before and do again the same steps to import a second file called "Grafana_Revenues.json"
 
 The dashboards will not work now; this is normal.
@@ -93,6 +97,8 @@ This command will start producing data into the kafka cluster. By default, these
 The default parameters can be changed when invoking the producer, for example:
 `python3 producer.py --num-users 50 --interval 5.0 --conversion-prob 0.5 --bootstrap-servers "kafka-broker-prod:9092"``
 
+![Producer producing data](images/4.-Producer.png)
+
 **Flink queries**
 Once the producer is producing data into the kafka cluster, the data will be processed in real time using Flink. In order to make things easier, the flink queries can be sent to the flink container in a batch file by executing the following command (a new terminal should be opened for this)
 
@@ -102,8 +108,16 @@ Once the producer is producing data into the kafka cluster, the data will be pro
 The demo can be checked out in the following resources:
 
  - **Confluent control center**: the main management console Web UI. Just go to http://localhost:9021 and the main cluster should appear there. Click on the cluster and then in the "Topics" link in the left side menu to see all the topics. The basic topics are "retail_clicks", "retail_orders" and "retail_payments". The rest of the topics are created and populated from the flink queries.
+
+![Confluent control center](images/5.-Control_center.png)
+
  - **Flink Web dashboard**: using a web browser, go to http://localhost:9081. In the Flink dashboard, all the running jobs (that is, the processing of the data from the topics) can see in the home page. (14 running jobs should be shown in this dashboard).
+
+![Flink dashboard](images/6.-Flink_queries.png)
+
  - **Grafana**: the dashboards that were imported before should be populating with data. Remember grafana can be accesed in the url http://localhost:3000. Then go to the option "Dashboards" in the lef side menu and then select the folder and dashboard imported before. The dashboards reflect the real time data processed by Flink and materialized in the postgres database. Refresh the dashboards to start seeing results.
+
+![Grafana dashboard](images/7.-Grafana_dash_1.png.png)
 
 ## Cleaning up resources
 To clean the resources in the demo, all the containers in docker can be destroyed. 
