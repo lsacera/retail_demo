@@ -18,20 +18,29 @@ It should work with similar resources under other operating systems, but it was 
 ## Setup
 
  - Clone this repository to a local folder in order to have all the resources available.
- `git clone https://github.com/lsacera/retail-demo`
+ `git clone https://github.com/lsacera/retail_demo`
  - Go to the cloned folder and create all the docker containers using the docker command:
- `docker compose up -d``
+ 
+ `docker compose up -d`
  - Once the machines are created, there are some resources that should be copied inside several of them. Execute the following commands:
+
  `chmod +x copy_resources.sh`
+
  `./copy_resources.sh`
+
  These commands will copy the needed jars and sql file into the Flink-related containers. When the copy is finished, do not forget to restart such contaniers using the following command:
+
  `docker compose restart flink-sql flink-jobmanager flink-taskmanager`
  (this command will reload the needed libraries in the containers.)
  - Then, create the needed kafka topics in the kafka cluster. To do so, there is an automated script that can be used. Execute:
+
 `chmod +x create_topics.sh`
+
  `./create_topics.sh`
  - Then create the needed tables into postgres. There is an automated script to ease this procedure. Execute:
+
 `chmod +x init_db.sh`
+
  `./init_db.sh`
  - Create a data source in grafana. To do so, open grafana in the Web Browser in the address http://localhost:3000 (the first time, a new admin password should be set. The default password is "admin").
 In the left menu, go to "Connections --> Data sources" option.
@@ -61,8 +70,11 @@ The creation dialog will appear. The importan fields are the following:
 **Producer**
 Once all resources are in place, new data can be created from the producer. To do so, it is better to create a python virtual environment to import the necesary libraries and execute the producer.
 Open a terminal and execute the following commands:
+
 `python3 -m venv retail`
+
 `source retail/bin/activate`
+
 `pip install confluent-kafka`
 
 Then start the producer with this command:
@@ -78,6 +90,7 @@ The default parameters can be changed when invoking the producer, for example:
 
 **Flink queries**
 Once the producer is producing data into the kafka cluster, the data is processed in real time using flink. In order to make things easier, the flink queries can be sent to the flink container in a batch file by executing the following command:
+
 `docker exec -it flink-sql-client /opt/flink/bin/sql-client.sh -f /opt/flink-news.sql`
 
 **Seeing results**
@@ -90,7 +103,11 @@ The demo can be checked out in the following resources:
 ## Cleaning up resources
 To clean the resources in the demo, all the containers in docker can be destroyed. 
 Should you want to clean the resources to start with fresh data, be sure the python producer is not running and execute the following commands:
+
 `chmod +x drop_db.sh`
+
  `./drop_db.sh`
+
  `chmod +x delete_topics.sh`
+
  `./delete_topics.sh`

@@ -296,7 +296,8 @@ services:
   ksql-datagen:
     image: confluentinc/ksqldb-examples:8.0.0
     hostname: ksql-datagen
-    container_name: ksql-datagen
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: ksql-datagen
     depends_on:
       - ksqldb-server
       - broker
