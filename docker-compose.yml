@@ -283,7 +283,8 @@ services:
 
   ksqldb-cli:
     image: confluentinc/cp-ksqldb-cli:8.0.0
-    container_name: ksqldb-cli
+    # Es una buena práctica no usar el nombre del contenedor
+    # container_name: ksqldb-cli
     depends_on:
       - broker
       - broker-2

@@ -18,9 +18,10 @@ It should work with similar resources under other operating systems, but it was 
 ## Setup
 
  - Clone this repository to a local folder in order to have all the resources available.
+ 
  `git clone https://github.com/lsacera/retail_demo`
  - Go to the cloned folder and create all the docker containers using the docker command:
- 
+
  `docker compose up -d`
  - Once the machines are created, there are some resources that should be copied inside several of them. Execute the following commands:
 
