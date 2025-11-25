@@ -4,7 +4,7 @@ services:
     image: confluentinc/cp-server:8.0.0
     hostname: broker
     # Es una buena práctica no poner el nombre del contenedor
-    # container_name: broker 
+    container_name: broker 
     ports:
       - "9092:9092"
       - "9101:9101"
@@ -55,7 +55,7 @@ services:
       - broker
     hostname: broker-2
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: broker-2
+    container_name: broker-2
     ports:
       - "9094:9092"
       - "9102:9101"
@@ -105,7 +105,7 @@ services:
       - broker-2
     hostname: broker-3
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: broker-3
+    container_name: broker-3
     ports:
       - "9096:9092"
       - "9103:9101"
@@ -164,7 +164,7 @@ services:
     image: cnfldemos/cp-server-connect-datagen:0.6.4-7.6.0
     hostname: connect
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: connect
+    container_name: connect
     depends_on:
       - broker
       - broker-2
@@ -196,7 +196,7 @@ services:
     image: confluentinc/cp-enterprise-prometheus:2.2.0
     hostname: cp-enterprise-prometheus
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: prometheus
+    container_name: prometheus
     volumes:
       - ./vol/config:/mnt/config
     ports:
@@ -209,7 +209,7 @@ services:
     image: confluentinc/cp-enterprise-alertmanager:2.2.0
     hostname: cp-enterprise-alertmanager
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: alertmanager
+    container_name: alertmanager
     depends_on:
       - prometheus
     volumes:
@@ -224,7 +224,7 @@ services:
     image: confluentinc/cp-enterprise-control-center-next-gen:2.2.0
     hostname: control-center
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: control-center
+    container_name: control-center
     depends_on:
       - broker
       - schema-registry
@@ -260,7 +260,7 @@ services:
     image: confluentinc/cp-ksqldb-server:8.0.0
     hostname: ksqldb-server
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: ksqldb-server
+    container_name: ksqldb-server
     depends_on:
       - broker
       - broker-2
@@ -285,7 +285,7 @@ services:
   ksqldb-cli:
     image: confluentinc/cp-ksqldb-cli:8.0.0
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: ksqldb-cli
+    container_name: ksqldb-cli
     depends_on:
       - broker
       - broker-2
@@ -299,7 +299,7 @@ services:
     image: confluentinc/ksqldb-examples:8.0.0
     hostname: ksql-datagen
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: ksql-datagen
+    container_name: ksql-datagen
     depends_on:
       - ksqldb-server
       - broker
@@ -331,7 +331,7 @@ services:
       - 8082:8082
     hostname: rest-proxy
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: rest-proxy
+    container_name: rest-proxy
     environment:
       KAFKA_REST_HOST_NAME: rest-proxy
       KAFKA_REST_BOOTSTRAP_SERVERS: 'broker:29092,broker-2:29092,broker-3:29092'
@@ -344,7 +344,7 @@ services:
       - flink-jobmanager
     hostname: flink-sql-client
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: flink-sql-client
+    container_name: flink-sql-client
     environment:
       FLINK_JOBMANAGER_HOST: flink-jobmanager
     
@@ -353,7 +353,7 @@ services:
     image: cnfldemos/flink-kafka:1.19.1-scala_2.12-java17
     hostname: flink-jobmanager
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: flink-jobmanager
+    container_name: flink-jobmanager
     ports:
     - 9081:9081
     command: jobmanager
@@ -368,7 +368,7 @@ services:
     image: cnfldemos/flink-kafka:1.19.1-scala_2.12-java17
     hostname: flink-taskmanager
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: flink-taskmanager
+    container_name: flink-taskmanager
     depends_on:
     - flink-jobmanager
     command: taskmanager
@@ -382,7 +382,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: grafana
+    container_name: grafana
     ports:
       - "3000:3000"
     environment:
@@ -392,7 +392,7 @@ services:
   postgres:
     image: postgres:15
     # Es una buena práctica no usar el nombre del contenedor
-    # container_name: postgres
+    container_name: postgres
     restart: always
     ports:
       - "5432:5432"

@@ -18,12 +18,14 @@ It should work with similar resources under other operating systems, but it was 
 ## Setup
 
  - Clone this repository to a local folder in order to have all the resources available.
- 
+
  `git clone https://github.com/lsacera/retail_demo`
  - Go to the cloned folder and create all the docker containers using the docker command:
 
  `docker compose up -d`
- - Once the machines are created, there are some resources that should be copied inside several of them. Execute the following commands:
+ - Once the machines are created, wait a couple of minutes to let all the services start. You can check the status by executing the command `docker ps`. 
+ Also, the status of control center can be checked in the url `http://localhost:9021`.
+ Some needed resources must be copied in the the contaniers. Execute the following commands:
 
  `chmod +x copy_resources.sh`
 
@@ -31,8 +33,8 @@ It should work with similar resources under other operating systems, but it was 
 
  These commands will copy the needed jars and sql file into the Flink-related containers. When the copy is finished, do not forget to restart such contaniers using the following command:
 
- `docker compose restart flink-sql flink-jobmanager flink-taskmanager`
- (this command will reload the needed libraries in the containers.)
+ `docker compose restart flink-sql-client flink-jobmanager flink-taskmanager`
+ (This command will reload the needed libraries in the containers.)
  - Then, create the needed kafka topics in the kafka cluster. To do so, there is an automated script that can be used. Execute:
 
 `chmod +x create_topics.sh`
