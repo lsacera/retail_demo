@@ -117,7 +117,7 @@ The demo can be checked out in the following resources:
 
  - **Grafana**: the dashboards that were imported before should be populating with data. Remember grafana can be accesed in the url http://localhost:3000. Then go to the option "Dashboards" in the lef side menu and then select the folder and dashboard imported before. The dashboards reflect the real time data processed by Flink and materialized in the postgres database. Refresh the dashboards to start seeing results.
 
-![Grafana dashboard](images/7.-Grafana_dash_1.png.png)
+![Grafana dashboard](images/7.-Grafana_dash_1.png)
 
 ## Cleaning up resources
 To clean the resources in the demo, all the containers in docker can be destroyed. 
